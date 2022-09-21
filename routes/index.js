@@ -1,6 +1,7 @@
 'use strict'
 const express = require('express')
 const employe = require('./employeRoutes')
+const auth = require('./authRoutes')
 const router = express()
 
 router.get(`/api/v1/`, (_req, res) => {
@@ -9,5 +10,7 @@ router.get(`/api/v1/`, (_req, res) => {
     })
 })
 
-module.exports = router
 router.use(employe)
+router.use(auth)
+
+module.exports = router
