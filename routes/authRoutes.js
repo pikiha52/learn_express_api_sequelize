@@ -2,6 +2,7 @@
 const express = require('express')
 const auth = require('../controllers/authController')
 const { check, validationResult } = require('express-validator')
+const { verifyToken } = require('../middleware/verify')
 const passwordHash = require('password-hash')
 const router = express.Router();
 
@@ -39,5 +40,6 @@ router.post(`/api/v1/auth/login`, [checkValidationLogin], (req, res) => {
 
      (!errors.isEmpty() ? res.status(422).json(errors) : auth.authentication(req, res))
 })
+router.post(`/api/v1/auth/logout`, verifyToken, auth.logout)
 
 module.exports = router

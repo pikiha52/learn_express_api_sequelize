@@ -1,5 +1,6 @@
 const db = require("../database/models")
 const Users = db.Users
+const Blacklist = db.Blacklist
 const jwt = require('jsonwebtoken')
 const passwordHash = require('password-hash')
 require("dotenv").config()
@@ -45,6 +46,20 @@ const authentication = async (req, res) => {
     }
 }
 
+const logout = async (req, res) => {
+    try {
+        if (req.headers.authorization) {
+            const token = req.headers.authorization.split(' ')[1]
+            await Blacklist.create({ token: token })
+            res.json({ msg: 'Logout sucessfully' }).status(200);
+        } else {
+            res.json({ msg: 'Token required' }).status(422);
+        }
+    } catch (error) {
+        res.json({ msg: error }).status(422)
+    }
+}
+
 module.exports = {
-    register, authentication
+    register, authentication, logout
 }
