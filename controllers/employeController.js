@@ -11,6 +11,10 @@ const index = async (req, res) => {
             where: condition,
             limit,
             offset,
+            order: [
+                ['id', 'DESC'],
+                ['employe_name', 'ASC'],
+            ],
         })
         const response = getPagingData(result, page, limit);
         res.send(response);
@@ -70,13 +74,13 @@ const update = (req, res) => {
 }
 
 const destroy = (req, res) => {
-    let msg
-    Employe.findByPk(req.params.id).then((row) => {
+    const id = req.params.id
+    Employe.findByPk(id).then((row) => {
         if (row) {
             row.destroy()
             msg = "success deleted"
         } else {
-            msg = `${req.params.id} not found in db`
+            msg = `${id} not found in db`
         }
         res.json({ message: err.message })
     }).catch((err) => {
