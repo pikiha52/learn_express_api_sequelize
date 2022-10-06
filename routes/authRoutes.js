@@ -41,5 +41,6 @@ router.post(`/api/v1/auth/login`, [checkValidationLogin], (req, res) => {
      (!errors.isEmpty() ? res.status(422).json(errors) : auth.authentication(req, res))
 })
 router.post(`/api/v1/auth/logout`, verifyToken, auth.logout)
+router.get(`/api/v1/auth/checktoken`, verifyToken, auth.tokenCheck)
 
 module.exports = router

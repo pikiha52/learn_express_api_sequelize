@@ -6,6 +6,14 @@ const jwt = require('jsonwebtoken')
 const passwordHash = require('password-hash')
 require("dotenv").config()
 
+const tokenCheck = async (req, res) => {
+    if (req.headers.authorization) {
+        res.json({ msg: 'Token verify' }).status(200);
+    } else {
+        res.json({ msg: 'Token required' }).status(422);
+    }
+}
+
 const register = async (input, res) => {
     try {
         const save = await Users.create(input)
@@ -71,5 +79,5 @@ const logout = async (req, res) => {
 }
 
 module.exports = {
-    register, authentication, logout
+    register, authentication, logout, tokenCheck
 }
