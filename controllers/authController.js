@@ -54,6 +54,9 @@ const authentication = async (req, res) => {
                 res.json({
                     token: token,
                     "modules": moduleKey,
+                    "username": cekUsername.username,
+                    "fullname": cekUsername.fullname,
+                    "email": cekUsername.email
                 }).status(200)
             });
 
