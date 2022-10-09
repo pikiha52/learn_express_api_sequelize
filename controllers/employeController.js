@@ -18,7 +18,6 @@ const index = async (req, res) => {
         })
         const response = getPagingData(result, page, limit);
         res.send(response);
-        // res.json(result).status(200)
     } catch (error) {
         res.json(error).status(422)
     }
